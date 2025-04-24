@@ -1,0 +1,328 @@
+
+<!--2015-10-17-->
+    
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!---->
+<head>
+    <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1">
+<title>SQL Tryit Editor v1.2</title>
+<link rel="stylesheet" type="text/css" href="css/stdtheme.css" />
+<script src="js/w3Database.js"></script>
+
+<style>
+    
+html {font-size:8px;background-color:#85144b;color:#F012BE;}
+h1, h2, h3, h4, p, table, tr, th, td {margin:0;padding:1px;}
+h1, h2, h3, h4, p {color:#ffffff;}
+a {color:#0074D9;text-decoration:none;}
+
+#contentSQL
+{
+ position:absolute;
+ background-color: #F012BE;
+ height:180px;
+ top:0px;
+ width:auto;
+ left:0px;
+ right:200px;
+ border-top:solid #c3c3c3 1px;
+ min-width:504px;
+}
+
+#resultSQL
+{
+ background-color: #F012BE;
+ position:absolute;
+ height:auto;
+ top:200px;
+ bottom:0px;
+ width:auto;
+ left:0px;
+ right:200px;
+ min-width:504px;
+ min-height:500px; 
+}
+
+#iframeResultSQL
+{
+ display:none;
+ background-color: #7FDBFF;
+ margin-left:1px;
+ height:95%;
+ min-height:400px;
+ top:25px;
+ width:97%;
+ border:1px solid #d3d3d3;
+}
+
+#divResultSQL
+{
+ background-color: #7FDBFF;
+ margin-left:1px;
+ height:95%;
+ top:25px;
+ width:97%;
+ border:1px solid #d3d3d3;
+ overflow:scroll;
+}
+
+#textareaCodeSQL
+{
+ height:100px;
+ margin-left:1px;
+ width:97%;
+ top:25px;
+ bottom:10px;
+ border:1px solid #d3d3d3; 
+ resize: none;
+ font-size:12px;
+}
+
+#footerSQL
+{
+ position:absolute;
+ height:20px;
+ bottom:0px;
+ right:20px;
+ color:#617f10;
+ font-family:verdana;
+}
+
+#dbInfo
+{
+ background-color:#FF851B;
+ border-top:1px solid #c3c3c3;
+ border-left:1px solid #c3c3c3;
+ width:200px;
+ position:absolute;
+ right:0px;
+ height:auto;
+ top:0px;
+ bottom:0px;
+ color:#222222;
+ font-family:verdana;
+ font-size:12px;
+ text-align:center;
+}
+
+.chromesupport,.iesupport,.safarisupport,.firefoxsupport,.operasupport {
+	width:20px; height:20px; float:left; margin-left:15px;background-repeat:no-repeat;
+}
+.iesupport		{background-image:url('../images/incompatible_ie2020.gif');}
+.chromesupport	{background-image:url('../images/compatible_chrome2020.gif');}
+.firefoxsupport	{background-image:url('../images/incompatible_firefox2020.gif');}
+.safarisupport	{background-image:url('../images/compatible_safari2020.gif');}
+.operasupport	{background-image:url('../images/compatible_opera2020.gif');}
+</style>
+</head>
+<body>
+    <div>
+        <h2>MD ANWAR HOSSAIN <a href="#" onclick="window.open('http://w3cp.blogspot.com', '_system');"> w3cp.blogspot.com</a></h2>
+        <br><h1><a href='students.sql.txt'>Sample SQL</a> || <a href='sample2.sql.txt'>Sample SQL 2</a>  ||<!-- <a href="#" onclick="window.open('students.sql.txt', '_system');"> Sample </a>--></h1>
+        <h3> <br>Follow me on GitHub <a href="#" onclick="window.open('https://github.com/w3cp/', '_system');">github.com/w3cp/ </a> || Follow me on Facebook <a href="#" onclick="window.open('https://www.facebook.com/md.anwarhossain.7967747?v=info&refid=17', '_system');"> facebook.com/ </a> || &#9743;+8801866675578 &nbsp; &#9743;+8801768310499</h3>
+    </div>
+<div style="position:absolute;min-width:704px;width:auto;left:0px;right:0px;height:auto;top:100px;bottom:0px;">
+	<div id="contentSQL">
+		<form style="margin:0px" action="http://www.w3schools.com/sql/trysql_view.asp" method="post" target="view" id="tryitform" name="tryitform" onsubmit="validateForm();">
+			<div style="text-align:right;margin-top:15px;margin-bottom:5px;margin-right:30px;color:#ffffff;font-family:verdana;font-size:14px;">
+				<div style="float:left;margin-left:10px;">Write Your SQL Statement:</div>
+				<!--Edit the SQL Statement, and click "Run SQL" to see the result.-->
+			</div>
+			<div style="clear:both;"></div>
+			<br><textarea id="textareaCodeSQL" wrap="logical" style='color:#85144b;'>
+
+                SELECT Customers.CustomerName, Orders.OrderID, Customers.Address
+                FROM Customers
+                INNER JOIN Orders
+                ON Customers.CustomerID=Orders.CustomerID
+                ORDER BY Customers.CustomerName;
+                
+            </textarea>
+			<input type="hidden" name="code" id="code" />
+			<input type="hidden" id="bt" name="bt" />
+		</form>
+		<br><input type="button" value="Run SQL &raquo;" onclick="w3schoolsSQLSubmit()" style="float:right;margin-right:30px;background-color:#2ECC40;color:#ffffff;">	
+	</div>
+	
+	<div style="position:absolute;top:180px;height:20px;color:#ffffff;font-family:verdana;font-size:14px;background-color:#F012BE;width:auto;left:0px;right:200px;min-width:504px;">
+		<div style="margin-left:10px;">Result:</div>
+	</div>
+	
+	<div id="resultSQL">
+		<br><iframe id="iframeResultSQL" frameborder="0" name="view"></iframe>
+		<div id="divResultSQL"><div style="margin:10px;margin-bottom:30px;">Click <b>"Run SQL"</b> to execute the SQL statement above.</div>
+		<div style="margin:10px;">W3schools has created an SQL database in your browser.</div>		
+		<div style="margin:10px;">The menu to the right displays the database, and will reflect any changes.</div>
+		<div style="margin:10px;">Feel free to experiment with any SQL statement.</div>				
+		<div style="margin:10px;">You can restore the database at any time.</div>				
+		</div>	
+		
+	</div>
+	
+	<div id="dbInfo">
+		<div id="descriptionDIV" style="font-size:90%;margin:5px;margin-top:0px;position:absolute;background-color:#111111;color:#F012BE;opacity:1;display:none;z-index:1;min-height:500px;">
+			<div id="CloseDescription" title="Close description'" style="width:20px;font-size:14px;background:#F012BE;color:#111111;top:3px;right:0px;position:absolute;border-radius:30px;cursor:pointer;" onclick="hideDescription()">X</div>			
+			<h3 style="color:#8AC007;font-weight:bold;">The SQL Editor<br> </h3>
+			<div id="nostatementsupport" style="display:none;">
+				<p>This SQL-Statement is not supported in the WebSQL Database.</p>
+				<p>The example still works, because it uses a modified version of SQL.</p>
+			</div>
+			<div id="nobrowsersupport" style="display:none;">
+				<p>Your browser does not support WebSQL.</p>
+				<p>Your are now using a light-version of the SQL Editor, with a read-only Database.</p>
+				<p>If you switch to a browser with WebSQL support, you can try any SQL statement, and play with the Database as much as you like. The Database can also be restored at any time.</p>
+			</div>
+			<div id="yesbrowsersupport">
+				<p>Our SQL Editor uses WebSQL to demonstrate SQL.</p>			
+				<p>A Database-object is created in your browser, for testing purposes.</p>
+				<p>You can try any SQL statement, and play with the Database as much as you like. The Database can be restored at any time, simply by clicking the "Restore Database" button.</p>
+			</div>
+			<div id="websqlexplain">
+				<h3 style="color:#8AC007;">W3C WebSQL</h3>
+				<p>WebSQL stores a Database locally, on the user's computer. Each user gets their own Database object.</p>
+				<!--<p>WebSQL was intended to be the standard Database Object in HTML5, however, W3C has announced that WebSQL will not be maintained any further.<p>-->
+				<h3 style="color:#8AC007;">WebSQL Browser Support</h3>
+				<div>
+					<div class="chromesupport"> </div>
+					<div class="iesupport"> </div>
+					<div class="safarisupport"> </div>
+					<div class="firefoxsupport"> </div>
+					<div class="operasupport"> </div>
+					<div style="clear:both;"></div>
+				</div>
+				<p>WebSQL is supported in Chrome, Safari, and Opera.</p>                
+				<div id="yesbrowsersupport2">			
+					<p>If you use another browser you will still be able to use our Try SQL Editor, but a different version, using a server-based ASP application, with a read-only Access Database, where users are not allowed to make any changes to the data.</p>		
+                    <br><h3 style='color:;'>Courtesy: w3schools.com</h3>
+
+                    <img src='img/pic.gif' style="width:110px;height:110px;">
+				</div>
+			</div>
+		</div>
+		<div style="font-size:14px;color:#8AC007;padding:3px;font-weight:bold;">Your Database:
+			<div id="WhatIsQuestionmark" title="What is this?" style="width:20px;background:black;color:#ffffff;top:3px;right:5px;position:absolute;border-radius:20px;cursor:pointer;z-index:0;" onclick="showDescription()">?</div>
+		</div>
+		<div style="margin:5px;color:#0074D9;">
+			<div id="yourDB" style="margin-top:10px;margin-bottom:20px;"></div>
+			<div id="yourRC" style="margin-top:10px;margin-bottom:20px;"></div>
+			<div id="yourIX" style="margin-top:10px;margin-bottom:20px;"></div>
+			<button title="Restore the database back to its original content" id="restoreDBBtn" type="button" onclick="w3schoolsWebSQL1.w3ClearDatabase()" style="display:none;background-color:#FF4136;color:#ffffff;">Restore Database</button>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" id="sSupport" value="" />
+<script type="text/javascript">
+var w3schoolsWebSQLOK = !!window.openDatabase;
+var statementSupport = document.getElementById("sSupport").value;
+if (w3schoolsWebSQLOK === true && statementSupport === "") {
+	w3schoolsWebSQL1 = new w3WebSQLInit();
+} else {
+	var ifr = document.getElementById("iframeResultSQL");
+	var idoc = (ifr.contentWindow || ifr.contentDocument);
+	if (idoc.document) idoc=idoc.document;
+	idoc.write("<div style='margin:10px;font-family:verdana;font-size:12px;'>Click <b>'Run SQL'</b> to execute the SQL statement above.</div>");
+}
+
+function showDescription() {
+	document.getElementById("descriptionDIV").style.display = "block";
+}
+
+function hideDescription() {
+	document.getElementById("descriptionDIV").style.display = "none";
+}
+
+function w3schoolsSQLSubmit() {
+	var txt;
+	if (w3schoolsWebSQLOK === true && statementSupport === "") {
+		w3schoolsWebSQL1.runSQL();
+	} else {
+		var t=document.getElementById("textareaCodeSQL").value;
+		t=t.replace(/=/gi,"w3equalsign");
+		w3schoolsNoWebSQLSubmit();
+	}
+}
+
+function w3schoolsWriteDBInfo() {
+	var txt;
+	if (w3schoolsWebSQLOK === true && statementSupport === "") {
+		document.getElementById("iframeResultSQL").style.display="none";
+		document.getElementById("divResultSQL").style.display="block";
+		document.getElementById("restoreDBBtn").style.display="inline";
+		document.getElementById("nobrowsersupport").style.display="none";
+		document.getElementById("nostatementsupport").style.display="none";		
+		document.getElementById("yesbrowsersupport").style.display="block";
+		w3schoolsWebSQL1.myDatabase();
+	} else {
+		if (w3schoolsWebSQLOK === true && statementSupport === "-1") {
+			document.getElementById("nostatementsupport").style.display="block";
+			document.getElementById("nobrowsersupport").style.display="none";
+			document.getElementById("yesbrowsersupport").style.display="none";
+			document.getElementById("yesbrowsersupport2").style.display="none";
+			document.getElementById("websqlexplain").style.display="none";			
+			document.getElementById("descriptionDIV").style.display = "block";
+		} else {
+			document.getElementById("nobrowsersupport").style.display="block";
+			document.getElementById("nostatementsupport").style.display="none";
+			document.getElementById("yesbrowsersupport").style.display="none";
+			document.getElementById("yesbrowsersupport2").style.display="none";
+		}
+		document.getElementById("divResultSQL").style.display="none";
+		document.getElementById("iframeResultSQL").style.display="inline";
+		txt = '';
+		txt = txt + '<table width="100%" cclass="reference notranslate">';
+		txt = txt + '<tr><th style="text-align:left;">Tablenames</th><th style="text-align:right;">Records</th></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Customers\')">Customers</td>';
+		txt = txt + '<td style="text-align:right;">91</td>';
+		txt = txt + '</tr><tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Categories\')">Categories</td>';
+		txt = txt + '<td style="text-align:right;">8</td>';
+		txt = txt + '</tr><tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Employees\')">Employees</td>';
+		txt = txt + '<td style="text-align:right;">10</td></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'OrderDetails\')">OrderDetails</td>';
+		txt = txt + '<td style="text-align:right;">518</td></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Orders\')">Orders</td>';
+		txt = txt + '<td style="text-align:right;">196</td></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Products\')">Products</td>';
+		txt = txt + '<td style="text-align:right;">77</td></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Shippers\')">Shippers</td>';
+		txt = txt + '<td style="text-align:right;">3</td></tr>';
+		txt = txt + '<tr><td style="text-align:left;cursor:pointer;text-decoration:underline;" onclick="w3schoolsNoWebSQLSelectStar(\'Suppliers\')">Suppliers</td>';
+		txt = txt + '<td style="text-align:right;">29</td></tr>';
+		txt = txt + '</table>';
+		document.getElementById("yourDB").innerHTML = txt;
+	}
+}
+
+function w3schoolsNoWebSQLSelectStar(x) {
+	var sql = "SELECT * FROM " + x + ";";
+	document.getElementById("textareaCodeSQL").value = sql;
+	w3schoolsNoWebSQLSubmit();
+}
+
+function w3schoolsNoWebSQLSubmit() {
+	var t = document.getElementById("textareaCodeSQL").value;
+	document.getElementById("code").value = t;
+		
+	document.getElementById("tryitform").action="trysql_view52a0.html?x=" + Math.random();
+	validateForm();
+	document.getElementById("tryitform").submit();
+}
+
+function validateForm() {
+	var code=document.getElementById("code").value;
+	if (code.length>5000) {
+		document.getElementById("code").value="<h1>Error</h1>";
+	}
+}
+
+w3schoolsWriteDBInfo();
+
+</script>
+<script src='js/cordova.js'></script>
+</body>
+
+<!---->
+</html>
+
